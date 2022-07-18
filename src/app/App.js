@@ -3,15 +3,17 @@ import {
   BrowserRouter as Router, 
   Route 
 } from "react-router-dom";
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import { ROUTES } from './ROUTES';
 import { Counter } from '../features/counter/Counter';
-import './App.css';
+import '../App.css';
+import Calendar from '../components/calendar/calendar';
 
 function App() {
   return (
     <Router>
         <div className="App">
+          <Calendar />
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <Counter />
