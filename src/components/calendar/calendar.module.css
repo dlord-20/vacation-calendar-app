@@ -1,4 +1,7 @@
 .container {
-    color: green;
     display: grid;
+}
+
+.timeOfDay ul {
+    list-style-type: none;
 }
