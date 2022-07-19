@@ -12,10 +12,10 @@ export default function Calendar() {
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.friday}`}><p>Friday</p></div>
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.saturday}`}><p>Saturday</p></div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixAm}`}>6:00 am</div>
-            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixThirtyAm}`}>7:00 am</div>
-            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenAm}`}>7:30 am</div>
-            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenThirtyAm}`}>8:00 am</div>
-            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eigthAm}`}>6:30 am</div>
+            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixThirtyAm}`}>6:30 am</div>
+            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenAm}`}>7:00 am</div>
+            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenThirtyAm}`}>7:30 am</div>
+            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightAm}`}>8:00 am</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightThirtyAm}`}>8:30 am</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.nineAm}`}>9:00 am</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.nineThirtyAm}`}>9:30 am</div>
@@ -26,7 +26,7 @@ export default function Calendar() {
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.twelvePm}`}>12:00 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.twelveThirtyPm}`}>12:30 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.onePm}`}>1:00 pm</div>
-            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.oneThiryPm}`}>1:30 pm</div>
+            <div className={`${calendarStyles.timeOfDay} ${calendarStyles.oneThirtyPm}`}>1:30 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.twoPm}`}>2:00 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.twoThirtyPm}`}>2:30 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.threePm}`}>3:00 pm</div>
@@ -41,6 +41,12 @@ export default function Calendar() {
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenThirtyPm}`}>7:30 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightPm}`}>8:00 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightThirtyPm}`}>8:30 pm</div>
+
+            {/* Test event placement */}
+            <div style={{gridArea: 6/4/7/6}}>I'm a test</div>
+            <div style={{gridArea: 2/4/3/5}}>I'm a test</div>
+
+
         </div>
     )
 }
