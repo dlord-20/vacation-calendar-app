@@ -44,7 +44,7 @@ export default function Calendar() {
 
             {/* Test event placement */}
             <div style={{gridArea: 6/4/7/6}}>I'm a test</div>
-            <div style={{gridArea: 2/4/3/5}}>I'm a test</div>
+            <div style={{gridArea: 2/4/3/5}}>I'm the second test</div>
 
 
         </div>
