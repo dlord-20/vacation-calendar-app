@@ -4,6 +4,7 @@ import calendarStyles from "./calendar.module.css";
 export default function Calendar() {
     return(
         <div className={calendarStyles.container}>
+            {/* Weekday Headers */}
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.sunday}`}><p>Sunday</p></div>
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.monday}`}><p>Monday</p></div>
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.tuesday}`}><p>Tuesday</p></div>
@@ -11,6 +12,7 @@ export default function Calendar() {
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.thursday}`}><p>Thursday</p></div>
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.friday}`}><p>Friday</p></div>
             <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.saturday}`}><p>Saturday</p></div>
+            {/* Time of Day */}
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixAm}`}>6:00 am</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixThirtyAm}`}>6:30 am</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenAm}`}>7:00 am</div>
@@ -42,9 +44,16 @@ export default function Calendar() {
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightPm}`}>8:00 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightThirtyPm}`}>8:30 pm</div>
 
+            {/* Weekday Containers */}
+            <div className={calendarStyles.mondayEvent}>
+                <div>Monday 1</div>
+                <div>Monday 2</div>       
+                <div>Monday 3</div>     
+            </div>
             {/* Test event placement */}
+
             <div style={{gridArea: 6/4/7/6}}>I'm a test</div>
-            <div style={{gridArea: 2/4/3/5}}>I'm the second test</div>
+            <div style={{gridArea: 2/4/3/5}}>I'm the second</div>
 
 
         </div>
