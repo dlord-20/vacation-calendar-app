@@ -48,11 +48,11 @@ export default function Calendar() {
             <div className={calendarStyles.mondayEvent}>
                 <div>Monday 1</div>
                 <div>Monday 2</div>       
-                <div>Monday 3</div>     
+                <div style={{gridRowStart: 5}}>Monday 3</div>     
             </div>
             {/* Test event placement */}
 
-            <div style={{gridArea: 6/4/7/6}}>I'm a test</div>
+            <div style={{gridRowStart: 5, gridRowEnd: 7, gridColumnStart: 5, gridColumnEnd: 7}}>I'm a test</div>
             <div style={{gridArea: 2/4/3/5}}>I'm the second</div>
 
 
