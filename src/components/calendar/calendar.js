@@ -48,6 +48,14 @@ export default function Calendar() {
         return times;
     }
 
+    const getTimeOfDayDiv = () => {
+        <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixAm}`}>6:00 am</div>
+    }
+
+    const getTimeOfDayDivs = () => {
+        const times = []
+    }
+
     return(
         <div>
             <div className="calendarInput">
@@ -81,6 +89,7 @@ export default function Calendar() {
                 <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.friday}`}><p>Friday</p></div>
                 <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.saturday}`}><p>Saturday</p></div>
                 {/* Time of Day */}
+                {getTimeOfDayDivs()}
                 <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixAm}`}>6:00 am</div>
                 <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sixThirtyAm}`}>6:30 am</div>
                 <div className={`${calendarStyles.timeOfDay} ${calendarStyles.sevenAm}`}>7:00 am</div>
