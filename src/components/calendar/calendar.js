@@ -2,6 +2,19 @@ import React from "react";
 import calendarStyles from "./calendar.module.css";
 
 export default function Calendar() {
+
+    const getBorderStyle = () => {
+        return {
+            border: '1px green solid'
+        }
+    }
+
+    const getGridPlacement = (rowStart, colStart, rowEnd, colEnd) => {
+        return {
+            gridArea: `${rowStart}/${colStart}/${rowEnd}/${colEnd}`
+        }
+    }
+
     return(
         <div className={calendarStyles.container}>
             {/* Weekday Headers */}
@@ -44,15 +57,7 @@ export default function Calendar() {
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightPm}`}>8:00 pm</div>
             <div className={`${calendarStyles.timeOfDay} ${calendarStyles.eightThirtyPm}`}>8:30 pm</div>
 
-            {/* Weekday Containers */}
-            <div className={calendarStyles.mondayEvent}>
-                <div>Monday 1</div>
-                <div>Monday 2</div>       
-                <div style={{gridRowStart: 5}}>Monday 3</div>     
-            </div>
-            {/* Test event placement */}
-
-            <div style={{gridRowStart: 5, gridRowEnd: 7, gridColumnStart: 5, gridColumnEnd: 7}}>I'm a test</div>
+            <div style={{...getBorderStyle(), ...getGridPlacement(6,6,7,7)}}>I'm a test</div>
             <div style={{gridArea: 2/4/3/5}}>I'm the second</div>
 
 

@@ -38,20 +38,6 @@
     grid-area: 1/8/2/9;
 }
 
-/* Day Events */
-
-.mondayEvent {
-    grid-area: 2/2/32/3;
-    display: inline-grid;
-    grid-template-rows: repeat(30, 1fr);
-    border: 1px green solid;
-}
-
-.mondayEvent * {
-    border: 1px black solid;
-}
-
-
 /* Time */
 
 .timeOfDay {
