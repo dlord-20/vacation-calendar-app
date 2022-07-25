@@ -90,7 +90,7 @@ export default function Calendar() {
         return times;
     }
 
-    const getWeekdayHeaders = () => {
+    const getWeekdayHeadersDivs = () => {
         const weekdaysArray = [];
         let col = 2;
         for(let i = 0; i < weekdays.length; i++) {
@@ -102,8 +102,13 @@ export default function Calendar() {
         return weekdaysArray;
     }
 
-    const getWeekdayOptions = () => {
-
+    const getWeekdayHeadersOptions = () => {
+        const weekdayOptions = [];
+        for(let i = 0; i < weekdays.length; i++) {
+            const option = <option value={weekdays[i]}>{weekdays[i]}</option>
+            weekdayOptions.push(option)
+        }
+        return weekdayOptions;
     }
 
     return(
@@ -114,13 +119,7 @@ export default function Calendar() {
                     <input type="text" id="eventName" name="eventName"></input><br/>
                     <label for="dayOfWeek">Day of the Week: </label>
                     <select id="dayOfWeek" name="dayOfWeek">
-                        <option value="Sunday">Sunday</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
+                        {getWeekdayHeadersOptions()}
                     </select><br/>
                     <label for="timeOfDay">Time of the Day: </label>
                     <select id="timeOfDay" name="timeOfDay">
@@ -131,7 +130,7 @@ export default function Calendar() {
             </div>
             <div className={calendarStyles.container}>
                 {/* Weekday Headers */}
-                {getWeekdayHeaders()}
+                {getWeekdayHeadersDivs()}
                 {/* Time of Day */}
                 {getTimeOfDayDivs()}
 
