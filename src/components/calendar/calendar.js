@@ -3,6 +3,9 @@ import calendarStyles from "./calendar.module.css";
 
 export default function Calendar() {
 
+    //add data arrays for time and weekday
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     const getBorderStyle = () => {
         return {
             border: '1px green solid'
@@ -87,6 +90,22 @@ export default function Calendar() {
         return times;
     }
 
+    const getWeekdayHeaders = () => {
+        const weekdaysArray = [];
+        let col = 2;
+        for(let i = 0; i < weekdays.length; i++) {
+            const newDay = <div className={calendarStyles.weekdayHeaders} style={{gridArea: `1/${col}/2/${col + 1}`}}>{weekdays[i]}</div>;
+            weekdaysArray.push(newDay);
+            col++;
+        }
+
+        return weekdaysArray;
+    }
+
+    const getWeekdayOptions = () => {
+
+    }
+
     return(
         <div>
             <div className="calendarInput">
@@ -112,13 +131,7 @@ export default function Calendar() {
             </div>
             <div className={calendarStyles.container}>
                 {/* Weekday Headers */}
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.sunday}`}><p>Sunday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.monday}`}><p>Monday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.tuesday}`}><p>Tuesday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.wednesday}`}><p>Wednesday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.thursday}`}><p>Thursday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.friday}`}><p>Friday</p></div>
-                <div className={`${calendarStyles.weekdayHeaders} ${calendarStyles.saturday}`}><p>Saturday</p></div>
+                {getWeekdayHeaders()}
                 {/* Time of Day */}
                 {getTimeOfDayDivs()}
 
