@@ -10,34 +10,6 @@
     font-weight: 700;
 }
 
-.sunday {
-    grid-area: 1/2/2/3;
-}
-
-.monday {
-    grid-area: 1/3/2/4;
-}
-
-.tuesday {
-    grid-area: 1/4/2/5;
-}
-
-.wednesday {
-    grid-area: 1/5/2/6;
-}
-
-.thursday {
-    grid-area: 1/6/2/7;
-}
-
-.friday {
-    grid-area: 1/7/2/8;
-}
-
-.saturday {
-    grid-area: 1/8/2/9;
-}
-
 /* Time */
 
 .timeOfDay {

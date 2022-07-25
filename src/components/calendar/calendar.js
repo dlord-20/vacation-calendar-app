@@ -1,7 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
 import calendarStyles from "./calendar.module.css";
 
 export default function Calendar() {
+    
+    const initialUserEventsState = {
+        name: '',
+        dayOfWeek: '',
+        timeOfDay: ''
+    };
+    const [userEvents, setUserEvents] = useState(initialUserEventsState);
 
     //add data arrays for time and weekday
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -111,6 +118,26 @@ export default function Calendar() {
         return weekdayOptions;
     }
 
+    const getUserEvents = () => {
+        const events = [];
+
+
+
+        return events;
+    }
+
+    const getDurationOptions = () => {
+        const durations = [];
+        for(let i = 1; i < 11; i++) {
+            durations.push(i*.5)
+        }
+        const list = [];
+        durations.forEach(duration => {
+            list.push(<option value={duration}>{duration} hours</option>)
+        })
+        return list;
+    }
+
     return(
         <div>
             <div className="calendarInput">
@@ -125,6 +152,10 @@ export default function Calendar() {
                     <select id="timeOfDay" name="timeOfDay">
                         {getTimeOfDayOptions()}
                     </select><br/>
+                    <label for="durationOfEvent">Duration: </label>
+                    <select id="durationOfEvent" name="durationEvent">
+                        {getDurationOptions()}
+                    </select><br/>
                     <input type="submit" value="Add Event"></input>
                 </form>
             </div>
@@ -133,9 +164,8 @@ export default function Calendar() {
                 {getWeekdayHeadersDivs()}
                 {/* Time of Day */}
                 {getTimeOfDayDivs()}
-
+                {getUserEvents()}
                 <div style={{...getBorderStyle(), ...getGridPlacement(6,6,7,7)}}>I'm a test</div>
-                <div style={{gridArea: 2/4/3/5}}>I'm the second</div>
 
 
             </div>
