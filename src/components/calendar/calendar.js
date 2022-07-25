@@ -128,10 +128,29 @@ export default function Calendar() {
         })
         return list;
     }
+
+    const getRowStartPosition = () => {
+
+    }
+
+    const getColumnStartPosition = () => {
+        
+    }
+    
+    const getEventDiv = (event) => {
+        // console.log(event.newName);
+        const rowStart = 0;
+        const colStart = 0;
+        // <div style={{...getBorderStyle(), ...getGridPlacement(6,6,7,7)}}>I'm a test</div>
+    }
     
     const getUserEvents = () => {
         const events = [];
-
+        
+        userEvents.forEach(event => {
+            const eventDiv = getEventDiv(event);
+            events.push(eventDiv);
+        })
 
 
         return events;
