@@ -6,7 +6,8 @@ export default function Calendar() {
     const initialUserEventsState = {
         name: '',
         dayOfWeek: '',
-        timeOfDay: ''
+        timeOfDay: '',
+        duration: 0.5
     };
     const [userEvents, setUserEvents] = useState(initialUserEventsState);
 
@@ -118,14 +119,6 @@ export default function Calendar() {
         return weekdayOptions;
     }
 
-    const getUserEvents = () => {
-        const events = [];
-
-
-
-        return events;
-    }
-
     const getDurationOptions = () => {
         const durations = [];
         for(let i = 1; i < 11; i++) {
@@ -137,13 +130,32 @@ export default function Calendar() {
         })
         return list;
     }
+    
+    const getUserEvents = () => {
+        const events = [];
+
+
+
+        return events;
+    }
+
+    const handleSubmit = (event) => {
+        console.log(event.eventName.value);
+    }
+
+    const handleNameChange = (e) => {
+        //Need to make sure this is change the name in current state
+        setUserEvents({name: e.target.value})
+    }
 
     return(
         <div>
             <div className="calendarInput">
-                <form>
-                    <label for="eventName">Event Name: </label>
-                    <input type="text" id="eventName" name="eventName"></input><br/>
+                <form onSubmit={handleSubmit}>
+                    <label for="eventName">Event Name: 
+                        <input type="text" id="eventName" name="eventName" onChange={handleNameChange}/><br/>
+                    </label>
+                    
                     <label for="dayOfWeek">Day of the Week: </label>
                     <select id="dayOfWeek" name="dayOfWeek">
                         {getWeekdayHeadersOptions()}
