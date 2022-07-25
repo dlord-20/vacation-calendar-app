@@ -3,13 +3,11 @@ import calendarStyles from "./calendar.module.css";
 
 export default function Calendar() {
     
-    const initialUserEventsState = {
-        name: '',
-        dayOfWeek: '',
-        timeOfDay: '',
-        duration: 0.5
-    };
-    const [userEvents, setUserEvents] = useState(initialUserEventsState);
+    const [userEvents, setUserEvents] = useState([]);
+    const [eventName, setEventName] = useState('');
+    const [eventDayOfWeek, setEventDayOfWeek] = useState('Sunday');
+    const [eventTimeOfDay, setEventTimeOfDay ] = useState('6: 00 am');
+    const [eventDuration, setEventDuration ]  = useState(0.5);
 
     //add data arrays for time and weekday
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -35,7 +33,7 @@ export default function Calendar() {
         if(!am) {
             amPm = 'p'
         }
-        return <option value={`${hour}:${halfHour}0 ${amPm}m`}>{hour}:{half}0 {amPm}m</option>
+        return <option value={`${hour}:${half}0 ${amPm}m`}>{hour}:{half}0 {amPm}m</option>
     }
 
     const getTimeOfDayOptions = () => {
@@ -140,12 +138,31 @@ export default function Calendar() {
     }
 
     const handleSubmit = (event) => {
-        console.log(event.eventName.value);
+        event.preventDefault();
+        const newEvent = {
+            newName: eventName,
+            newWeekday: eventDayOfWeek,
+            newTime: eventTimeOfDay,
+            newDuration: eventDuration
+        } 
+        setUserEvents(userEvents => [...userEvents, newEvent])
     }
 
     const handleNameChange = (e) => {
-        //Need to make sure this is change the name in current state
-        setUserEvents({name: e.target.value})
+        setEventName(eventName =>  e.target.value);
+    }
+
+    const handleDayOfWeek = (e) => {
+        setEventDayOfWeek(eventDayOfWeek => e.target.value)
+    }
+
+    const handleTimeOfDay = (e) => {
+        setEventTimeOfDay(eventTimeOfDay => e.target.value)
+    }
+
+    const handleDuration = (e) => {
+        console.log(e.target.value);
+        setEventDuration(eventDuration => e.target.value)
     }
 
     return(
@@ -157,15 +174,15 @@ export default function Calendar() {
                     </label>
                     
                     <label for="dayOfWeek">Day of the Week: </label>
-                    <select id="dayOfWeek" name="dayOfWeek">
+                    <select id="dayOfWeek" name="dayOfWeek" onChange={handleDayOfWeek}>
                         {getWeekdayHeadersOptions()}
                     </select><br/>
                     <label for="timeOfDay">Time of the Day: </label>
-                    <select id="timeOfDay" name="timeOfDay">
+                    <select id="timeOfDay" name="timeOfDay" onChange={handleTimeOfDay}>
                         {getTimeOfDayOptions()}
                     </select><br/>
                     <label for="durationOfEvent">Duration: </label>
-                    <select id="durationOfEvent" name="durationEvent">
+                    <select id="durationOfEvent" name="durationEvent" onChange={handleDuration}>
                         {getDurationOptions()}
                     </select><br/>
                     <input type="submit" value="Add Event"></input>
