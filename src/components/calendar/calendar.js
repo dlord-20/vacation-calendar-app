@@ -129,18 +129,28 @@ export default function Calendar() {
         return list;
     }
 
-    const getRowStartPosition = () => {
-
+    const getRowStartPosition = (timeOfDay) => {
+        // console.log(timeOfDay);
+        return 5;
     }
 
-    const getColumnStartPosition = () => {
-        
+    const getRowEndPosition = (eventDuration) => {
+        return 1;
+    }
+
+    const getColumnStartPosition = (weekday) => {
+        // console.log(weekday);
+
+        return 5;
     }
     
     const getEventDiv = (event) => {
         // console.log(event.newName);
-        const rowStart = 0;
-        const colStart = 0;
+        const rowStart = getRowStartPosition(event.eventTime);
+        const rowEnd = getRowEndPosition(event.eventDuration);
+        const colStart = getColumnStartPosition(event.eventWeekday);
+
+        return <div style={{...getBorderStyle(), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>{event.eventName}</div>
         // <div style={{...getBorderStyle(), ...getGridPlacement(6,6,7,7)}}>I'm a test</div>
     }
     
@@ -159,10 +169,10 @@ export default function Calendar() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const newEvent = {
-            newName: eventName,
-            newWeekday: eventDayOfWeek,
-            newTime: eventTimeOfDay,
-            newDuration: eventDuration
+            eventName: eventName,
+            eventWeekday: eventDayOfWeek,
+            eventTime: eventTimeOfDay,
+            eventDuration: eventDuration
         } 
         setUserEvents(userEvents => [...userEvents, newEvent])
     }
