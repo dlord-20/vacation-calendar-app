@@ -42,7 +42,7 @@ export default function Calendar() {
     const getOptions = (time) => {
         return (
             <option value={time}>
-                <p>{time}</p>
+                {time}
             </option>
         )
     }
@@ -211,33 +211,41 @@ export default function Calendar() {
             eventTime: eventTimeOfDay,
             eventDuration: eventDuration
         } 
-        setUserEvents(userEvents => [...userEvents, newEvent])
-
-        //Figure out how to reset the form after a submission
+        setUserEvents(userEvents => [...userEvents, newEvent]);
+        clearForm();
     }
 
     //handles event deletion
     const handleEventDeletion = (event) => {
-        const newEventList = [];
-        const oldEventList = userEvents;
-        let indexToDelete = -1;
-
-        oldEventList.forEach((currentEvent, index) => {
-            if(currentEvent.eventName === event.eventName) {
-                indexToDelete = index;
+        // console.log(event.eventName);
+        const oldEventList = [];
+        userEvents.map(item => {
+            // console.log(item.eventName);
+            if(item.eventName !== event.eventName) {
+                oldEventList.push(item);
             }
         })
+        setUserEvents(oldEventList);
+    }
 
-        // console.log('Working');
-        oldEventList.splice(indexToDelete, 1);
-        setUserEvents(userEvents => oldEventList);
+    const clearForm = () => {
+        updateForm('', weekdaysData[0], timesData[0], 0.5);
+    }
 
+    //Reset form
+    const updateForm = (name, day, time, duration) => {
+        //This way or create a new way to update
+        setEventName(eventName => name);
+        setEventDayOfWeek(eventDayOfWeek => day);
+        setEventTimeOfDay(eventTimeOfDay => time);
+        setEventDuration(eventDuration => duration);
     }
 
     //Updates states in the app
 
     const handleNameChange = (e) => {
         setEventName(eventName =>  e.target.value);
+        // updateForm(e.target.value);
     }
 
     const handleDayOfWeek = (e) => {
@@ -260,19 +268,19 @@ export default function Calendar() {
             <div className="calendarInput">
                 <form onSubmit={handleSubmit}>
                     <label for="eventName">Event Name: 
-                        <input type="text" id="eventName" name="eventName" onChange={handleNameChange}/><br/>
+                        <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange}/><br/>
                     </label>
                     
                     <label for="dayOfWeek">Day of the Week: </label>
-                    <select id="dayOfWeek" name="dayOfWeek" onChange={handleDayOfWeek}>
+                    <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
                         {getWeekdayHeadersOptions()}
                     </select><br/>
                     <label for="timeOfDay">Time of the Day: </label>
-                    <select id="timeOfDay" name="timeOfDay" onChange={handleTimeOfDay}>
+                    <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
                         {getTimeOfDayOptions()}
                     </select><br/>
                     <label for="durationOfEvent">Duration: </label>
-                    <select id="durationOfEvent" name="durationEvent" onChange={handleDuration}>
+                    <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
                         {getDurationOptions()}
                     </select><br/>
                     <input type="submit" value="Add Event"></input>
