@@ -9,9 +9,16 @@ export default function Calendar() {
     const [eventTimeOfDay, setEventTimeOfDay ] = useState('6:00 am');
     const [eventDuration, setEventDuration ]  = useState(0.5);
 
+    //----------------Data---------------------
+
+
     //add data arrays for time and weekday
     const weekdaysData = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const timesData = ['6:00 am', '6:30 am', '7:00 am', '7:30 am', '8:00 am', '8:30 am', '9:00 am', '9:30 am', '10:00 am', '10:30 am', '11:00 am', '11:30 am', '12:00 pm', '12:30 pm', '1:00 pm', '1:30 pm', '2:00 pm', '2:30 pm', '3:00 pm', '3:30 pm', '4:00 pm', '4:30 pm', '5:00 pm', '5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm', '8:30 pm' ];
+
+    //----------------End of Data---------------------
+
+    //----------------Determines CSS---------------------
 
     //Determine className for the event
     const getBorderStyle = () => {
@@ -27,6 +34,10 @@ export default function Calendar() {
         }
     }
 
+    //----------------End of determines CSS---------------------
+
+    //----------------JSX----------------
+
     //Return an option for the 'Time of the Day' dropdown list in the form
     const getOptions = (time) => {
         return (
@@ -35,6 +46,46 @@ export default function Calendar() {
             </option>
         )
     }
+
+    //Returns an time div for the calendar (left panel)
+    const getTimeOfDayDiv = (time, row) => {
+        return (
+            <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}}>
+                <p>{time}</p>
+            </div>
+        );
+    }
+
+    //returns an event div for the calendar
+    const getEventDiv = (event) => {
+        // console.log(event.newName);
+        const rowStart = getRowStartPosition(event.eventTime);
+        const rowEnd = getRowEndPosition(event.eventDuration);
+        const colStart = getColumnStartPosition(event.eventWeekday);
+
+        return (
+            <div style={{...getBorderStyle(), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
+                <p>{event.eventName}</p>
+            </div>
+        )
+    }
+
+    //creates div for list below the calendar
+    const getEventListDiv = (event) => {
+        return (
+        <div className={calendarStyles.eventList}>
+            <p>{event.eventName}</p>
+            <p>{event.eventWeekday}</p>
+            <p>{event.eventTime}</p>
+            <p>{event.eventDuration} hours</p>
+        </div>
+        )
+    }
+
+    //----------------END of JSX----------------
+
+
+    //----------------Lists of JSX----------------
 
     //Return list of options for the 'Time of the Day' in the form
     const getTimeOfDayOptions = () => {
@@ -47,14 +98,7 @@ export default function Calendar() {
         return times;
     }
 
-    //Returns an time div for the calendar (left panel)
-    const getTimeOfDayDiv = (time, row) => {
-        return (
-            <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}}>
-                <p>{time}</p>
-            </div>
-        );
-    }
+
 
     //Adds a list of time divs that is added to the DOM (left panel)
     const getTimeOfDayDivs = () => {
@@ -105,6 +149,35 @@ export default function Calendar() {
         return list;
     }
 
+    //returns an array of events that is added to the DOM
+    const getUserEvents = () => {
+        const events = [];
+        
+        userEvents.forEach(event => {
+            const eventDiv = getEventDiv(event);
+            events.push(eventDiv);
+        })
+
+        return events;
+    }
+
+    //adds event list to the DOM
+    const getUserEventsList = () => {
+        const events = [];
+
+        userEvents.forEach(event => {
+            const eventDiv = getEventListDiv(event);
+            events.push(eventDiv);
+        })
+
+        return events;
+    }
+
+    //----------------END list of JSX----------------
+
+    //----------------Positioning of events in calendar----------------
+
+
     //returns row position for the event in the calendar
     const getRowStartPosition = (timeOfDay) => {
         const index = timesData.indexOf(timeOfDay);
@@ -122,53 +195,10 @@ export default function Calendar() {
         const index = weekdaysData.indexOf(weekday);
         return index + 2;
     }
-    
-    //returns an event div for the calendar
-    const getEventDiv = (event) => {
-        // console.log(event.newName);
-        const rowStart = getRowStartPosition(event.eventTime);
-        const rowEnd = getRowEndPosition(event.eventDuration);
-        const colStart = getColumnStartPosition(event.eventWeekday);
 
-        return <div style={{...getBorderStyle(), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>{event.eventName}</div>
-    }
-    
-    //returns an array of events that is added to the DOM
-    const getUserEvents = () => {
-        const events = [];
-        
-        userEvents.forEach(event => {
-            const eventDiv = getEventDiv(event);
-            events.push(eventDiv);
-        })
+    //----------------End of positioning of events in calendar----------------
 
-
-        return events;
-    }
-
-    //creates div for list below the calendar
-    const getEventListDiv = (event) => {
-        return (
-        <div className={calendarStyles.eventList}>
-            <p>{event.eventName}</p>
-            <p>{event.eventWeekday}</p>
-            <p>{event.eventTime}</p>
-            <p>{event.eventDuration} hours</p>
-        </div>
-        )
-    }
-
-    //adds event list to the DOM
-    const getUserEventsList = () => {
-        const events = [];
-
-        userEvents.forEach(event => {
-            const eventDiv = getEventListDiv(event);
-            events.push(eventDiv);
-        })
-
-        return events;
-    }
+    //----------------Handles js events---------------------
 
     //handles form submission
     const handleSubmit = (event) => {
@@ -202,6 +232,8 @@ export default function Calendar() {
         console.log(e.target.value);
         setEventDuration(eventDuration => e.target.value)
     }
+
+    //----------------End of Handles js events---------------------
 
     return(
         <div>
