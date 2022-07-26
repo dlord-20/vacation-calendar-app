@@ -8,28 +8,35 @@ export default function Calendar() {
     const [eventDescription, setEventDescription] = useState('');
     const [eventDayOfWeek, setEventDayOfWeek] = useState('Sunday');
     const [eventTimeOfDay, setEventTimeOfDay ] = useState('6:00 am');
+    const [eventColor, setEventColor] = useState('blue');
     const [eventDuration, setEventDuration ]  = useState(0.5);
 
     //----------------Data---------------------
-
 
     //add data arrays for time and weekday
     const weekdaysData = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const timesData = ['6:00 am', '6:30 am', '7:00 am', '7:30 am', '8:00 am', '8:30 am', '9:00 am', '9:30 am', '10:00 am', '10:30 am', '11:00 am', '11:30 am', '12:00 pm', '12:30 pm', '1:00 pm', '1:30 pm', '2:00 pm', '2:30 pm', '3:00 pm', '3:30 pm', '4:00 pm', '4:30 pm', '5:00 pm', '5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm', '8:30 pm' ];
 
-    const categoryColorsData = [{ colorName: 'blue', colorCode: '555555'},{ colorName: 'green', colorCode: '123456'}]
+    const categoryColorsData = [
+        { colorName: 'blue', colorCode: '192841', textColor: 'white'},
+        { colorName: 'green', colorCode: '22bc22', textColor: 'white'},
+        { colorName: 'pink', colorCode: 'cd5e77', textColor: 'white'}
+    ];
 
     //----------------End of Data---------------------
 
     //----------------Determine CSS---------------------
 
-    //Determine className for the event
+    //Determine category styles for the event
     const getBorderStyle = (category) => {
-        const categoryColor = categoryColorsData.find(({colorName}) => colorName === category)
-
+        const categoryColor = categoryColorsData.find(({colorName}) => colorName === category);
+        console.log('BorderStyle:');
+        console.log(categoryColor);
+        const code = categoryColor.colorCode;
+        const text = categoryColor.textColor;
         const style = {
-            backgroundColor: `#${categoryColor.colorCode}`,
-            color: 'white'
+            backgroundColor: `#${code}`,
+            color: `${text}`
         }
         
         return style;
@@ -66,13 +73,14 @@ export default function Calendar() {
 
     //returns an event div for the calendar
     const getEventDiv = (event) => {
-        // console.log(event.newName);
         const rowStart = getRowStartPosition(event.eventTime);
         const rowEnd = getRowEndPosition(event.eventDuration);
         const colStart = getColumnStartPosition(event.eventWeekday);
+        console.log('eventColor: ' + event.eventColor);
+        const selectedColor = event.eventColor;
 
         return (
-            <div style={{...getBorderStyle('blue'), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
+            <div style={{...getBorderStyle(selectedColor), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
                 <p>{event.eventName}</p>
             </div>
         )
@@ -91,6 +99,10 @@ export default function Calendar() {
             
         </div>
         )
+    }
+
+    const getColorOption = (color) => {
+        return <option value={color}>{color}</option>
     }
 
     //----------------END of JSX----------------
@@ -184,6 +196,16 @@ export default function Calendar() {
         return events;
     }
 
+    const getColorOptions = () => {
+        const colorsList = [];
+        categoryColorsData.forEach(category => {
+            colorsList.push(getColorOption(category.colorName));
+        })
+
+        return colorsList;
+
+    }
+
     //----------------END list of JSX----------------
 
     //----------------Positioning of events in calendar----------------
@@ -219,7 +241,8 @@ export default function Calendar() {
             eventDescription: eventDescription,
             eventWeekday: eventDayOfWeek,
             eventTime: eventTimeOfDay,
-            eventDuration: eventDuration
+            eventDuration: eventDuration,
+            eventColor: eventColor
         } 
         setUserEvents(userEvents => [...userEvents, newEvent]);
         clearForm();
@@ -237,41 +260,46 @@ export default function Calendar() {
     }
 
     const clearForm = () => {
-        updateForm('', '', weekdaysData[0], timesData[0], 0.5);
+        updateForm('', '', weekdaysData[0], timesData[0],'blue', 0.5,);
     }
 
     //Reset form
-    const updateForm = (name, description, day, time, duration) => {
+    const updateForm = (name, description, day, time, color, duration ) => {
         //This way or create a new way to update
-        setEventName(eventName => name);
-        setEventDescription(eventDescription => description);
-        setEventDayOfWeek(eventDayOfWeek => day);
-        setEventTimeOfDay(eventTimeOfDay => time);
-        setEventDuration(eventDuration => duration);
+        setEventName(name);
+        setEventDescription(description);
+        setEventDayOfWeek(day);
+        setEventTimeOfDay(time);
+        setEventColor(color)
+        setEventDuration(duration);
     }
 
     //Updates states in the app
 
     const handleNameChange = (e) => {
-        setEventName(eventName =>  e.target.value);
+        setEventName(e.target.value);
     }
 
     const handleDescriptionChange = (e) => {
-        console.log(e.target.value);
-        setEventDescription(eventDesciption => e.target.value);
+        setEventDescription(e.target.value);
     }
 
     const handleDayOfWeek = (e) => {
-        setEventDayOfWeek(eventDayOfWeek => e.target.value)
+        setEventDayOfWeek(e.target.value)
     }
 
     const handleTimeOfDay = (e) => {
-        setEventTimeOfDay(eventTimeOfDay => e.target.value)
+        setEventTimeOfDay(e.target.value)
+    }
+
+    const handleColor = (e) => {
+        setEventColor(e.target.value)
     }
 
     const handleDuration = (e) => {
-        setEventDuration(eventDuration => e.target.value)
+        setEventDuration(e.target.value)
     }
+
 
     //----------------End of Handles js events---------------------
 
@@ -293,6 +321,11 @@ export default function Calendar() {
                     <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
                         {getTimeOfDayOptions()}
                     </select><br/>
+                    <label for="color">Category:
+                        <select id="color" name="color" value={eventColor} onChange={handleColor}>
+                            {getColorOptions()}
+                        </select><br/> 
+                    </label>
                     <label for="durationOfEvent">Duration: </label>
                     <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
                         {getDurationOptions()}
