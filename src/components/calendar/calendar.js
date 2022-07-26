@@ -25,75 +25,39 @@ export default function Calendar() {
         }
     }
 
-    const getOptions = (hour, halfHour, am) => {
-        let half = 0;
-        if(halfHour) {
-            half = 3;
-        }
-        let amPm = 'a'
-        if(!am) {
-            amPm = 'p'
-        }
-        return <option value={`${hour}:${half}0 ${amPm}m`}>{hour}:{half}0 {amPm}m</option>
+    const getOptions = (time) => {
+        return (
+        <option value={time}>
+            <p>{time}</p>
+        </option>)
     }
 
     const getTimeOfDayOptions = () => {
         const times = [];
 
-        //get am times
-        for(let i = 6; i < 12; i++) {
-            times.push(getOptions(i, false, true));
-            times.push(getOptions(i, true, true));
-        }
+        timesTest.forEach(time => {
+            times.push(getOptions(time));
+        })
 
-        //get noon times
-        times.push(getOptions(12, false, false));
-        times.push(getOptions(12, true, false));
-
-        //get pm times
-        for(let i = 1; i < 9; i++) {
-            times.push(getOptions(i, false, false));
-            times.push(getOptions(i, true, false));
-        }
         return times;
     }
 
-    const getTimeOfDayDiv = (hour, halfHour, am, row) => {
-        let half = 0;
-        if(halfHour) {
-            half = 3;
-        }
-        let amPm = 'a'
-        if(!am) {
-            amPm = 'p'
-        }
-        return <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}}>{hour}:{half}0 {amPm}m</div>;
+    const getTimeOfDayDiv = (time, row) => {
+        return (
+        <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}}>
+            <p>{time}</p>
+        </div>);
     }
 
     const getTimeOfDayDivs = () => {
         const times = [];
         let row = 2;
-        //get am times
-        for(let i = 6; i < 12; i++) {
-            times.push(getTimeOfDayDiv(i, false, true, row));
-            row++;
-            times.push(getTimeOfDayDiv(i, true, true, row));
-            row++;
-        }
 
-        //get noon times
-        times.push(getTimeOfDayDiv(12, false, false, row));
-        row++;
-        times.push(getTimeOfDayDiv(12, false, false, row));
-        row++;
+        timesTest.forEach(time => {
+            times.push(getTimeOfDayDiv(time, row));
+            row++
+        })
 
-        //get pm times
-        for(let i = 1; i < 9; i++) {
-            times.push(getTimeOfDayDiv(i, false, false, row));
-            row++;
-            times.push(getTimeOfDayDiv(i, true, false, row));
-            row++;
-        }
         return times;
     }
 
