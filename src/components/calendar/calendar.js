@@ -5,6 +5,7 @@ export default function Calendar() {
     
     const [userEvents, setUserEvents] = useState([]);
     const [eventName, setEventName] = useState('');
+    const [eventDescription, setEventDescription] = useState('');
     const [eventDayOfWeek, setEventDayOfWeek] = useState('Sunday');
     const [eventTimeOfDay, setEventTimeOfDay ] = useState('6:00 am');
     const [eventDuration, setEventDuration ]  = useState(0.5);
@@ -76,6 +77,7 @@ export default function Calendar() {
         <div className={calendarStyles.eventList}>
             <p><a className={calendarStyles.close} onClick={() => {handleEventDeletion(event)}}></a></p>
             <p>{event.eventName}</p>
+            <p>{event.eventDescription}</p>
             <p>{event.eventWeekday}</p>
             <p>{event.eventTime}</p>
             <p>{event.eventDuration} hours</p>
@@ -207,6 +209,7 @@ export default function Calendar() {
         event.preventDefault();
         const newEvent = {
             eventName: eventName,
+            eventDescription: eventDescription,
             eventWeekday: eventDayOfWeek,
             eventTime: eventTimeOfDay,
             eventDuration: eventDuration
@@ -217,10 +220,8 @@ export default function Calendar() {
 
     //handles event deletion
     const handleEventDeletion = (event) => {
-        // console.log(event.eventName);
         const oldEventList = [];
         userEvents.map(item => {
-            // console.log(item.eventName);
             if(item.eventName !== event.eventName) {
                 oldEventList.push(item);
             }
@@ -229,13 +230,14 @@ export default function Calendar() {
     }
 
     const clearForm = () => {
-        updateForm('', weekdaysData[0], timesData[0], 0.5);
+        updateForm('', '', weekdaysData[0], timesData[0], 0.5);
     }
 
     //Reset form
-    const updateForm = (name, day, time, duration) => {
+    const updateForm = (name, description, day, time, duration) => {
         //This way or create a new way to update
         setEventName(eventName => name);
+        setEventDescription(eventDescription => description);
         setEventDayOfWeek(eventDayOfWeek => day);
         setEventTimeOfDay(eventTimeOfDay => time);
         setEventDuration(eventDuration => duration);
@@ -245,7 +247,11 @@ export default function Calendar() {
 
     const handleNameChange = (e) => {
         setEventName(eventName =>  e.target.value);
-        // updateForm(e.target.value);
+    }
+
+    const handleDescriptionChange = (e) => {
+        console.log(e.target.value);
+        setEventDescription(eventDesciption => e.target.value);
     }
 
     const handleDayOfWeek = (e) => {
@@ -257,7 +263,6 @@ export default function Calendar() {
     }
 
     const handleDuration = (e) => {
-        console.log(e.target.value);
         setEventDuration(eventDuration => e.target.value)
     }
 
@@ -268,9 +273,11 @@ export default function Calendar() {
             <div className="calendarInput">
                 <form onSubmit={handleSubmit}>
                     <label for="eventName">Event Name: 
-                        <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange}/><br/>
+                        <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange} placeholder="Hike to temple"/><br/>
                     </label>
-                    
+                    <label for="eventDescription">Event Description: 
+                        <input type="text" id="eventDescription" name="eventDescription" value={eventDescription} onChange={handleDescriptionChange} placeholder="1.5 hours up, 1 hour down"/><br/>
+                    </label>
                     <label for="dayOfWeek">Day of the Week: </label>
                     <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
                         {getWeekdayHeadersOptions()}
