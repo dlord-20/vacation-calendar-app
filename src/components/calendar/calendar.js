@@ -24,12 +24,15 @@ export default function Calendar() {
     //----------------Determine CSS---------------------
 
     //Determine className for the event
-    const getBorderStyle = () => {
-        return {
-            border: '1px green solid',
-            backgroundColor: `#${categoryColorsData[1].colorCode}`,
+    const getBorderStyle = (category) => {
+        const categoryColor = categoryColorsData.find(({colorName}) => colorName === category)
+
+        const style = {
+            backgroundColor: `#${categoryColor.colorCode}`,
             color: 'white'
         }
+        
+        return style;
     }
 
     //Place event in correct position on the calendar
@@ -69,7 +72,7 @@ export default function Calendar() {
         const colStart = getColumnStartPosition(event.eventWeekday);
 
         return (
-            <div style={{...getBorderStyle(), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
+            <div style={{...getBorderStyle('blue'), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
                 <p>{event.eventName}</p>
             </div>
         )
