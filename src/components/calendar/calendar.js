@@ -74,7 +74,7 @@ export default function Calendar() {
     const getEventListDiv = (event) => {
         return (
         <div className={calendarStyles.eventList}>
-            <p><a className={calendarStyles.close} onClick={handleEventDeletion(event)}></a></p>
+            <p><a className={calendarStyles.close} onClick={() => {handleEventDeletion(event)}}></a></p>
             <p>{event.eventName}</p>
             <p>{event.eventWeekday}</p>
             <p>{event.eventTime}</p>
@@ -230,7 +230,7 @@ export default function Calendar() {
 
         // console.log('Working');
         oldEventList.splice(indexToDelete, 1);
-        // setUserEvents(userEvents => oldEventList);
+        setUserEvents(userEvents => oldEventList);
 
     }
 
