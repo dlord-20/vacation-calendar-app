@@ -18,7 +18,7 @@ export default function Calendar() {
 
     //----------------End of Data---------------------
 
-    //----------------Determines CSS---------------------
+    //----------------Determine CSS---------------------
 
     //Determine className for the event
     const getBorderStyle = () => {
@@ -34,7 +34,7 @@ export default function Calendar() {
         }
     }
 
-    //----------------End of determines CSS---------------------
+    //----------------End of determine CSS---------------------
 
     //----------------JSX----------------
 
@@ -74,10 +74,12 @@ export default function Calendar() {
     const getEventListDiv = (event) => {
         return (
         <div className={calendarStyles.eventList}>
+            <p><a className={calendarStyles.close} onClick={handleEventDeletion(event)}></a></p>
             <p>{event.eventName}</p>
             <p>{event.eventWeekday}</p>
             <p>{event.eventTime}</p>
             <p>{event.eventDuration} hours</p>
+            
         </div>
         )
     }
@@ -212,6 +214,24 @@ export default function Calendar() {
         setUserEvents(userEvents => [...userEvents, newEvent])
 
         //Figure out how to reset the form after a submission
+    }
+
+    //handles event deletion
+    const handleEventDeletion = (event) => {
+        const newEventList = [];
+        const oldEventList = userEvents;
+        let indexToDelete = -1;
+
+        oldEventList.forEach((currentEvent, index) => {
+            if(currentEvent.eventName === event.eventName) {
+                indexToDelete = index;
+            }
+        })
+
+        // console.log('Working');
+        oldEventList.splice(indexToDelete, 1);
+        // setUserEvents(userEvents => oldEventList);
+
     }
 
     //Updates states in the app
