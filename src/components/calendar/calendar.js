@@ -11,7 +11,7 @@ export default function Calendar() {
 
     //add data arrays for time and weekday
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const timesTest = ['6:00 am', '6:30 am', '7:00 am', '7:30 am', '8:00 am', '8:30 am', '9:00 am', '9:30 am', '10:00 am', '10:30 am', '11:00 am', '11:30 am', '12:00 pm', '12:30 pm', '1:00 pm', '1:30 pm', '2:00 pm', '2:30 pm', '3:00 pm', '3:30 pm', '4:00 pm', '4:30 pm', '5:00 pm', '5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm', '8:30 pm', ];
+    const timesTest = ['6:00 am', '6:30 am', '7:00 am', '7:30 am', '8:00 am', '8:30 am', '9:00 am', '9:30 am', '10:00 am', '10:30 am', '11:00 am', '11:30 am', '12:00 pm', '12:30 pm', '1:00 pm', '1:30 pm', '2:00 pm', '2:30 pm', '3:00 pm', '3:30 pm', '4:00 pm', '4:30 pm', '5:00 pm', '5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm', '8:30 pm' ];
 
     const getBorderStyle = () => {
         return {
@@ -166,6 +166,28 @@ export default function Calendar() {
         return events;
     }
 
+    const getEventListDiv = (event) => {
+        return (
+        <div className={calendarStyles.eventList}>
+            <p>{event.eventName}</p>
+            <p>{event.eventWeekday}</p>
+            <p>{event.eventTime}</p>
+            <p>{event.eventDuration}</p>
+        </div>
+        )
+    }
+
+    const getUserEventsList = () => {
+        const events = [];
+
+        userEvents.forEach(event => {
+            const eventDiv = getEventListDiv(event);
+            events.push(eventDiv);
+        })
+
+        return events;
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const newEvent = {
@@ -222,14 +244,13 @@ export default function Calendar() {
                 {getWeekdayHeadersDivs()}
                 {/* Time of Day */}
                 {getTimeOfDayDivs()}
+                {/* User Events */}
                 {getUserEvents()}
-                <div style={{...getBorderStyle(), ...getGridPlacement(6,6,7,7)}}>I'm a test</div>
-
-
             </div>
             <div className="eventList">
                 <div>
                     <p>Here's a list</p>
+                    {getUserEventsList()}
                 </div>
             </div>
         </div>

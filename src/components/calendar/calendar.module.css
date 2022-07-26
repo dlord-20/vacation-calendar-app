@@ -13,6 +13,10 @@
 /* Time */
 
 .timeOfDay {
-    text-align: left;
+    text-align: right;
     font-style: italic;
+}
+
+.eventList {
+    border: 1px pink solid;
 }
