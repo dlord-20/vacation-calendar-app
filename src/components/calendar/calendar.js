@@ -329,7 +329,12 @@ export default function Calendar() {
                     {getUserEventsList()}
                 </div>
             </div>
+
             {/* Possibly insert crazy background here */}
+            <div className={calendarStyles.bg}></div>
+            <div className={`${calendarStyles.bg} ${calendarStyles.bg2}`}></div>
+            <div className={`${calendarStyles.bg} ${calendarStyles.bg3}`}></div>
+            {/* End of code */}
         </div>
     )
 }
