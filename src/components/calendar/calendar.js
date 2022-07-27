@@ -2,11 +2,12 @@ import { React, useState } from "react";
 import calendarStyles from "./calendar.module.css";
 import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 
-//Add borders for each day
 //Change color of list to corresponding category color
 //Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
+//Add nice background
+//Add glass effect to the calendar
 
 export default function Calendar() {
     
@@ -285,6 +286,7 @@ export default function Calendar() {
 
     return(
         <div>
+            <h1>Weekly Planner</h1>
             <div className="calendarInput">
                 <form onSubmit={handleSubmit}>
                     <label for="eventName">Event Name: 
@@ -327,6 +329,7 @@ export default function Calendar() {
                     {getUserEventsList()}
                 </div>
             </div>
+            {/* Possibly insert crazy background here */}
         </div>
     )
 }
