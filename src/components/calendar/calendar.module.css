@@ -22,9 +22,7 @@
 /* Events container */
 
 .calendarUserEvents {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    display: table;
     cursor: pointer;
 }
 
@@ -33,19 +31,25 @@
     height: 100%;
     width: 100%;
     box-sizing: border-box;
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
 }
 
 /* blue */
 
 .eventBlue {
-    color: white;
-    background-color: lightblue;
+    background-color: lightskyblue;
+    border: 4px lightskyblue solid;
+}
+
+.eventBlue:hover {
+    border: 4px blue solid;
 }
 
 /* green */
 
 .eventGreen {
-    color: white;
     background-color: green;
     border: 4px green solid;
 }
@@ -57,8 +61,13 @@
 /* pink */
 
 .eventPink {
-    color: white;
     background-color: pink;
+    border: 4px pink solid;
+
+}
+
+.eventPink:hover {
+    border: 4px darkviolet solid;
 }
 
 /* ----- Calendar End ----- */
