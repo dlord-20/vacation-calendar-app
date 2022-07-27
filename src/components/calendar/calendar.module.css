@@ -4,8 +4,18 @@ body {
 
 .container {
     display: grid;
+    width: 90%;
+    margin: 1rem auto;
+    padding: 1rem;
     grid-template-columns:  5rem repeat(7, 1fr);
-    /* background-color: darkolivegreen; */
+    border: 1px black solid;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 25px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #edeff4;
 }
 
 .container * {
@@ -128,12 +138,12 @@ h1 {
     }
   
 
-/* ---------------Crazy Back----------- */
+/* ---------------Entire Calendar Background----------- */
 
 
 .bg {
     animation:slide 3s ease-in-out infinite alternate;
-    background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+    background-image: linear-gradient(-60deg, #374b57 50%, #30414b 50%);
     bottom:0;
     left:-50%;
     opacity:.5;
@@ -160,3 +170,4 @@ h1 {
     transform:translateX(25%);
 }
 }
+
