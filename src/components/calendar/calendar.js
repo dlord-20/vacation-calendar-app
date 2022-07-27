@@ -6,8 +6,7 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
-//Add nice background
-//Add glass effect to the calendar
+//Move creating an event to lightbox -> Possibly make it possible so when you click on the calendar you can add an event right at that time and day
 
 export default function Calendar() {
     
@@ -49,8 +48,6 @@ export default function Calendar() {
             </div>
         );
     }
-
-    // <div className={`event${getBorderStyle(selectedColor)}`} style={{...getBorderStyle(selectedColor), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
 
     //returns an event div for the calendar
     const getEventDiv = (event) => {
@@ -187,6 +184,36 @@ export default function Calendar() {
 
     }
 
+    // const weekdaysArray = [];
+    //     let col = 2;
+    //     for(let i = 0; i < weekdaysData.length; i++) {
+    //         const newDay = <div className={calendarStyles.weekdayHeaders} style={{gridArea: `1/${col}/2/${col + 1}`}}>{weekdaysData[i]}</div>;
+    //         weekdaysArray.push(newDay);
+    //         col++;
+    //     }
+
+    //     return weekdaysArray;
+
+    const getBlankGrid = () => {
+        const blankGrids = [];
+        let col = 2;
+        let row = 2;
+        for(let i = 0; i < timesData.length; i++) {
+            col = 2;
+            for(let j = 0; j < weekdaysData.length; j++) {
+                const blankGrid = <div 
+                className={calendarStyles.blankGridBlock} 
+                style={{gridArea: `${row}/${col}/${row+1}/${col + 1}`}} 
+                onMouseOver={handleMouseOver}></div>;
+                blankGrids.push(blankGrid);
+                col++;
+            }
+            row++;
+        }
+
+        return blankGrids;
+    }
+
     //----------------END list of JSX----------------
 
     //----------------Positioning of events in calendar----------------
@@ -213,6 +240,12 @@ export default function Calendar() {
     //----------------End of positioning of events in calendar----------------
 
     //----------------Handles js events---------------------
+
+    //Highlights day and time mouse is located on
+    const handleMouseOver = (event) => {
+        console.log('row: ');
+        console.log(event.target.style.gridArea);
+    }
 
     //handles form submission
     const handleSubmit = (event) => {
@@ -320,6 +353,8 @@ export default function Calendar() {
                 {getWeekdayHeadersDivs()}
                 {/* Time of Day */}
                 {getTimeOfDayDivs()}
+                {/* Blank grid events for effects */}
+                {getBlankGrid()}
                 {/* User Events */}
                 {getUserEvents()}
             </div>
