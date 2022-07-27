@@ -3,10 +3,10 @@ import calendarStyles from "./calendar.module.css";
 import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 
 //Add borders for each day
-//Change category colors to className instead of inline - Can add better effects this way
 //Change color of list to corresponding category color
-//Change list to be in chronological order
+//Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
+//Make event list tell us the events under each day
 
 export default function Calendar() {
     
@@ -178,8 +178,8 @@ export default function Calendar() {
 
     const getColorOptions = () => {
         const colorsList = [];
-        categoryColorsData.forEach(category => {
-            colorsList.push(getColorOption(category.colorName));
+        categoryColorsData.forEach(color => {
+            colorsList.push(getColorOption(color));
         })
 
         return colorsList;
@@ -240,7 +240,7 @@ export default function Calendar() {
     }
 
     const clearForm = () => {
-        updateForm('', '', weekdaysData[0], timesData[0],'Blue', 0.5,);
+        updateForm('', '', weekdaysData[0], timesData[0], categoryColorsData[0], 0.5,);
     }
 
     //Reset form
