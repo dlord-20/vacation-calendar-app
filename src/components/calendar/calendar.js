@@ -43,7 +43,7 @@ export default function Calendar() {
     //Returns an time div for the calendar (left panel)
     const getTimeOfDayDiv = (time, row) => {
         return (
-            <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}}>
+            <div className={calendarStyles.timeOfDay} style={{gridArea: `${row}/1/${row + 1}/2`}} id={`timeHeader${row}`}>
                 <p>{time}</p>
             </div>
         );
@@ -119,7 +119,11 @@ export default function Calendar() {
         const weekdaysArray = [];
         let col = 2;
         for(let i = 0; i < weekdaysData.length; i++) {
-            const newDay = <div className={calendarStyles.weekdayHeaders} style={{gridArea: `1/${col}/2/${col + 1}`}}>{weekdaysData[i]}</div>;
+            const newDay = (
+                <div className={calendarStyles.weekdayHeaders} style={{gridArea: `1/${col}/2/${col + 1}`}} id={`weekdayHeader${i}`}>
+                    <p>{weekdaysData[i]}</p>
+                </div>
+            );
             weekdaysArray.push(newDay);
             col++;
         }
@@ -184,16 +188,6 @@ export default function Calendar() {
 
     }
 
-    // const weekdaysArray = [];
-    //     let col = 2;
-    //     for(let i = 0; i < weekdaysData.length; i++) {
-    //         const newDay = <div className={calendarStyles.weekdayHeaders} style={{gridArea: `1/${col}/2/${col + 1}`}}>{weekdaysData[i]}</div>;
-    //         weekdaysArray.push(newDay);
-    //         col++;
-    //     }
-
-    //     return weekdaysArray;
-
     const getBlankGrid = () => {
         const blankGrids = [];
         let col = 2;
@@ -201,11 +195,13 @@ export default function Calendar() {
         for(let i = 0; i < timesData.length; i++) {
             col = 2;
             for(let j = 0; j < weekdaysData.length; j++) {
-                const blankGrid = <div 
-                className={calendarStyles.blankGridBlock} 
-                style={{gridArea: `${row}/${col}/${row+1}/${col + 1}`}} 
-                onMouseOver={handleMouseOver}></div>;
-                blankGrids.push(blankGrid);
+                const blankGrid = (
+                    <div 
+                    className={calendarStyles.blankGridBlock} 
+                    style={{gridArea: `${row}/${col}/${row+1}/${col + 1}`}} 
+                    onMouseOver={handleMouseOver} id={`blankitem${row}${col}`}/>
+                    );
+                    blankGrids.push(blankGrid);
                 col++;
             }
             row++;
@@ -243,8 +239,20 @@ export default function Calendar() {
 
     //Highlights day and time mouse is located on
     const handleMouseOver = (event) => {
-        console.log('row: ');
-        console.log(event.target.style.gridArea);
+        const gridArea = event.target.style.gridArea;
+        const rowStart =  gridArea.slice(0, gridArea.indexOf('/'));
+        const temp = gridArea.slice(gridArea.indexOf('/') + 1, gridArea.lastIndexOf('/'));
+        const colStart = temp.slice(1, gridArea.indexOf('/'));
+        const rowEnd = temp.slice(temp.lastIndexOf('/') + 2);
+        // console.log(event.target.style.gridArea);
+        // console.log('rowStart: ' + rowStart);
+        // console.log('colStart: ' + colStart);
+        // console.log('rowEnd: ' + rowEnd);
+
+        //Now we need to access the current weekday grid block and time grid block
+        //id=weekdayHeader5
+        //id=timeHeader(row)
+
     }
 
     //handles form submission
@@ -322,26 +330,26 @@ export default function Calendar() {
             <h1>Weekly Planner</h1>
             <div className="calendarInput">
                 <form onSubmit={handleSubmit}>
-                    <label for="eventName">Event Name: 
+                    <label htmlFor="eventName">Event Name: 
                         <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange} placeholder="Hike to temple"/><br/>
                     </label>
-                    <label for="eventDescription">Event Description: 
+                    <label htmlFor="eventDescription">Event Description: 
                         <input type="text" id="eventDescription" name="eventDescription" value={eventDescription} onChange={handleDescriptionChange} placeholder="1.5 hours up, 1 hour down"/><br/>
                     </label>
-                    <label for="dayOfWeek">Day of the Week: </label>
+                    <label htmlFor="dayOfWeek">Day of the Week: </label>
                     <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
                         {getWeekdayHeadersOptions()}
                     </select><br/>
-                    <label for="timeOfDay">Time of the Day: </label>
+                    <label htmlFor="timeOfDay">Time of the Day: </label>
                     <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
                         {getTimeOfDayOptions()}
                     </select><br/>
-                    <label for="color">Category:
+                    <label htmlFor="color">Category:
                         <select id="color" name="color" value={eventColor} onChange={handleColor}>
                             {getColorOptions()}
                         </select><br/> 
                     </label>
-                    <label for="durationOfEvent">Duration: </label>
+                    <label htmlFor="durationOfEvent">Duration: </label>
                     <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
                         {getDurationOptions()}
                     </select><br/>
