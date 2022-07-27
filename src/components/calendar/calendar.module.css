@@ -25,6 +25,21 @@
     border: 1px pink solid;
 }
 
+.eventBlue {
+    color: white;
+    background-color: lightblue;
+}
+
+.eventGreen {
+    color: white;
+    background-color: green;
+}
+
+.eventPink {
+    color: white;
+    background-color: pink;
+}
+
 .close {
     position: absolute;
     right: 32px;

@@ -7,7 +7,6 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Change color of list to corresponding category color
 //Change list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
-//Move data into seperate file
 
 export default function Calendar() {
     
@@ -16,39 +15,10 @@ export default function Calendar() {
     const [eventDescription, setEventDescription] = useState('');
     const [eventDayOfWeek, setEventDayOfWeek] = useState('Sunday');
     const [eventTimeOfDay, setEventTimeOfDay ] = useState('6:00 am');
-    const [eventColor, setEventColor] = useState('blue');
+    const [eventColor, setEventColor] = useState('Blue');
     const [eventDuration, setEventDuration ]  = useState(0.5);
 
-    //----------------Data---------------------
-
-    //add data arrays for time and weekday
-    // const weekdaysData = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // const timesData = ['6:00 am', '6:30 am', '7:00 am', '7:30 am', '8:00 am', '8:30 am', '9:00 am', '9:30 am', '10:00 am', '10:30 am', '11:00 am', '11:30 am', '12:00 pm', '12:30 pm', '1:00 pm', '1:30 pm', '2:00 pm', '2:30 pm', '3:00 pm', '3:30 pm', '4:00 pm', '4:30 pm', '5:00 pm', '5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm', '8:30 pm' ];
-
-    // const categoryColorsData = [
-    //     { colorName: 'blue', colorCode: '192841', textColor: 'white'},
-    //     { colorName: 'green', colorCode: '22bc22', textColor: 'white'},
-    //     { colorName: 'pink', colorCode: 'cd5e77', textColor: 'white'}
-    // ];
-
-    //----------------End of Data---------------------
-
-    //----------------Determine CSS---------------------
-
-    //Determine category styles for the event
-    const getBorderStyle = (category) => {
-        const categoryColor = categoryColorsData.find(({colorName}) => colorName === category);
-        console.log('BorderStyle:');
-        console.log(categoryColor);
-        const code = categoryColor.colorCode;
-        const text = categoryColor.textColor;
-        const style = {
-            backgroundColor: `#${code}`,
-            color: `${text}`
-        }
-        
-        return style;
-    }
+    //----------------Determine inline CSS---------------------
 
     //Place event in correct position on the calendar
     const getGridPlacement = (rowStart, colStart, rowEnd, colEnd) => {
@@ -57,7 +27,7 @@ export default function Calendar() {
         }
     }
 
-    //----------------End of determine CSS---------------------
+    //----------------End of determining inline CSS---------------------
 
     //----------------JSX----------------
 
@@ -79,16 +49,18 @@ export default function Calendar() {
         );
     }
 
+    // <div className={`event${getBorderStyle(selectedColor)}`} style={{...getBorderStyle(selectedColor), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
+
     //returns an event div for the calendar
     const getEventDiv = (event) => {
         const rowStart = getRowStartPosition(event.eventTime);
         const rowEnd = getRowEndPosition(event.eventDuration);
         const colStart = getColumnStartPosition(event.eventWeekday);
-        console.log('eventColor: ' + event.eventColor);
         const selectedColor = event.eventColor;
+        const nameOfClass = `event${selectedColor}`;
 
         return (
-            <div style={{...getBorderStyle(selectedColor), ...getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}}>
+            <div className={calendarStyles[nameOfClass]} style={getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}>
                 <p>{event.eventName}</p>
             </div>
         )
@@ -268,7 +240,7 @@ export default function Calendar() {
     }
 
     const clearForm = () => {
-        updateForm('', '', weekdaysData[0], timesData[0],'blue', 0.5,);
+        updateForm('', '', weekdaysData[0], timesData[0],'Blue', 0.5,);
     }
 
     //Reset form
