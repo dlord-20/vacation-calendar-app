@@ -60,8 +60,8 @@ export default function Calendar() {
         const nameOfClass = `event${selectedColor}`;
 
         return (
-            <div className={calendarStyles[nameOfClass]} style={getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}>
-                <p>{event.eventName}</p>
+            <div className={calendarStyles.calendarUserEvents} style={getGridPlacement(rowStart, colStart, rowStart + rowEnd, colStart + 1)}>
+                <p className={calendarStyles[nameOfClass]}>{event.eventName}</p>
             </div>
         )
     }

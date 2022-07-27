@@ -1,43 +1,72 @@
 .container {
-    display: inline-grid;
+    display: grid;
     grid-template-columns:  5rem repeat(7, 1fr);
-    
 }
 
 .container * {
     margin: 0px;
+    /* border: 1px pink solid; */
 }
 
-/* Weekday */
-
-.weekdayHeaders {
-    font-weight: 700;
-}
-
-/* Time */
+/* ----- Calendar Start ----- */
 
 .timeOfDay {
     text-align: right;
     font-style: italic;
 }
 
-.eventList {
-    border: 1px pink solid;
+.weekdayHeaders {
+    font-weight: 700;
 }
+
+/* Events container */
+
+.calendarUserEvents {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.calendarUserEvents * {
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* blue */
 
 .eventBlue {
     color: white;
     background-color: lightblue;
 }
 
+/* green */
+
 .eventGreen {
     color: white;
     background-color: green;
+    border: 4px green solid;
 }
+
+.eventGreen:hover {
+    border: 4px darkgreen solid;
+}
+
+/* pink */
 
 .eventPink {
     color: white;
     background-color: pink;
+}
+
+/* ----- Calendar End ----- */
+
+/* List */
+
+.eventList {
+    border: 1px pink solid;
 }
 
 .close {
