@@ -1,5 +1,4 @@
 body {
-    /* background-color: darkolivegreen; */
 }
 
 .container {
@@ -20,23 +19,25 @@ body {
 
 .container * {
     margin: 0px;
-    /* border: 1px pink solid; */
-}
-
-h1 {
-
 }
 
 /* ----- Calendar Start ----- */
 
 .timeOfDay {
-    text-align: left;
+    text-align: center;
     font-style: italic;
     box-sizing: border-box;
+    border-right: 2px rgba(0, 0, 0, 0) solid;
+    margin-right: .8rem;
+    padding: .5rem .01rem;
 }
 
 .weekdayHeaders {
     font-weight: 700;
+    box-sizing: border-box;
+    border-bottom: 2px rgba(0, 0, 0, 0) solid;
+    margin-bottom: .8rem;
+    padding: .5rem .7rem;
 }
 
 .blankGridBlock {
@@ -51,8 +52,8 @@ h1 {
 /* Events container */
 
 .calendarUserEvents {
-    display: table;
     cursor: pointer;
+    margin: .1rem;
 }
 
 .calendarUserEvents p {
@@ -60,9 +61,9 @@ h1 {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    display: table-cell;
-    vertical-align: middle;
     color: white;
+    padding: .1rem;
+
 }
 
 /* blue */

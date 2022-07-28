@@ -242,32 +242,31 @@ export default function Calendar() {
     //----------------Handles js events---------------------
 
     //Pop up with lightbox to add event
-    //Change default day of the week and time of day in the form
+    //Maybe add a onDragStart and onDragEnd to edit duration as well
     const handleGridClick = (event) => {
-        const gridPositions = getPositionOnGrid(event);
-        const rowStart = gridPositions[0];
-        const colStart = gridPositions[1];
-        updateForm('', '', weekdaysData[colStart], timesData[rowStart - 2], categoryColorsData[0], 0.5,);
+        const rowStart = getRowPositionOnGrid(event);
+        const colStart = getColPositionOnGrid(event);
+        updateForm(eventName, eventDescription, weekdaysData[colStart], timesData[rowStart - 2], eventColor, eventDuration);
 
     }
 
-    //split this up into two seperate functions
-    const getPositionOnGrid = (event) => {
+    const getRowPositionOnGrid = (event) => {
         const gridArea = event.target.style.gridArea;
-        const rowStart =  gridArea.slice(0, gridArea.indexOf('/'));
+        const rowStart = gridArea.slice(0, gridArea.indexOf('/'));
+        return rowStart * 1;
+    }
+
+    const getColPositionOnGrid = (event) => {
+        const gridArea = event.target.style.gridArea;
         const temp = gridArea.slice(gridArea.indexOf('/') + 1, gridArea.lastIndexOf('/'));
         const colStart = temp.slice(1, gridArea.indexOf('/'));
-        const rowEnd = temp.slice(temp.lastIndexOf('/') + 2);
-
-        return [rowStart * 1, colStart - 2];
+        return colStart - 2;
     }
-
 
     //Highlights day and time mouse is located on
     const handleGridMouseEnter = (event) => {
-        const gridPositions = getPositionOnGrid(event);
-        const rowStart = gridPositions[0];
-        const colStart = gridPositions[1];
+        const rowStart = getRowPositionOnGrid(event);
+        const colStart = getColPositionOnGrid(event);
         const currentTimeStyle = "2px white solid"
 
         //This is bad... Shouldn't access elements like this but it works
@@ -276,21 +275,19 @@ export default function Calendar() {
         weekdayElement.style.borderBottom = currentTimeStyle;
         const timeElement = document.getElementById(`timeHeader${rowStart}`);
         timeElement.style.borderRight = currentTimeStyle
-
-
     }
 
     const handleGridMouseLeave = (event) => {
-        const gridPositions = getPositionOnGrid(event);
-        const rowStart = gridPositions[0];
-        const colStart = gridPositions[1];
+        const rowStart = getRowPositionOnGrid(event);
+        const colStart = getColPositionOnGrid(event);
+        const currentTimeStyle = "2px rgba(0, 0, 0, 0) solid";
 
         //This is bad... Shouldn't access elements like this but it works
         
         const weekdayElement = document.getElementById(`weekdayHeader${colStart}`);
-        weekdayElement.style.borderBottom = "none";
+        weekdayElement.style.borderBottom = currentTimeStyle;
         const timeElement = document.getElementById(`timeHeader${rowStart}`);
-        timeElement.style.borderRight = "none";
+        timeElement.style.borderRight = currentTimeStyle;
     }
 
     //handles form submission
