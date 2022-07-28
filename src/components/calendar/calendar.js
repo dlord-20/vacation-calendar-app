@@ -7,7 +7,7 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
 //Move creating an event to lightbox -> Possibly make it possible so when you click on the calendar you can add an event right at that time and day
-//Highlight time and day when hover over empty grid spaces
+
 
 export default function Calendar() {
     
@@ -200,7 +200,10 @@ export default function Calendar() {
                     <div 
                     className={calendarStyles.blankGridBlock} 
                     style={{gridArea: `${row}/${col}/${row+1}/${col + 1}`}} 
-                    onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} id={`blankitem${row}${col}`}/>
+                    onMouseEnter={handleGridMouseEnter} 
+                    onMouseLeave={handleGridMouseLeave} 
+                    onClick={handleGridClick}
+                    id={`blankitem${row}${col}`}/>
                     );
                     blankGrids.push(blankGrid);
                 col++;
@@ -238,6 +241,17 @@ export default function Calendar() {
 
     //----------------Handles js events---------------------
 
+    //Pop up with lightbox to add event
+    //Change default day of the week and time of day in the form
+    const handleGridClick = (event) => {
+        const gridPositions = getPositionOnGrid(event);
+        const rowStart = gridPositions[0];
+        const colStart = gridPositions[1];
+        updateForm('', '', weekdaysData[colStart], timesData[rowStart - 2], categoryColorsData[0], 0.5,);
+
+    }
+
+    //split this up into two seperate functions
     const getPositionOnGrid = (event) => {
         const gridArea = event.target.style.gridArea;
         const rowStart =  gridArea.slice(0, gridArea.indexOf('/'));
@@ -245,35 +259,37 @@ export default function Calendar() {
         const colStart = temp.slice(1, gridArea.indexOf('/'));
         const rowEnd = temp.slice(temp.lastIndexOf('/') + 2);
 
-        return [rowStart, colStart];
+        return [rowStart * 1, colStart - 2];
     }
+
 
     //Highlights day and time mouse is located on
-    const handleMouseEnter = (event) => {
+    const handleGridMouseEnter = (event) => {
         const gridPositions = getPositionOnGrid(event);
         const rowStart = gridPositions[0];
         const colStart = gridPositions[1];
+        const currentTimeStyle = "2px white solid"
 
         //This is bad... Shouldn't access elements like this but it works
         
-        const weekdayElement = document.getElementById(`weekdayHeader${colStart - 2}`);
-        weekdayElement.style.borderBottom = "2px white solid";
-        const timeElement = document.getElementById(`timeHeader${rowStart * 1}`);
-        timeElement.style.borderRight = "2px white solid";
+        const weekdayElement = document.getElementById(`weekdayHeader${colStart}`);
+        weekdayElement.style.borderBottom = currentTimeStyle;
+        const timeElement = document.getElementById(`timeHeader${rowStart}`);
+        timeElement.style.borderRight = currentTimeStyle
 
 
     }
 
-    const handleMouseLeave = (event) => {
+    const handleGridMouseLeave = (event) => {
         const gridPositions = getPositionOnGrid(event);
         const rowStart = gridPositions[0];
         const colStart = gridPositions[1];
 
         //This is bad... Shouldn't access elements like this but it works
         
-        const weekdayElement = document.getElementById(`weekdayHeader${colStart - 2}`);
+        const weekdayElement = document.getElementById(`weekdayHeader${colStart}`);
         weekdayElement.style.borderBottom = "none";
-        const timeElement = document.getElementById(`timeHeader${rowStart * 1}`);
+        const timeElement = document.getElementById(`timeHeader${rowStart}`);
         timeElement.style.borderRight = "none";
     }
 
@@ -307,7 +323,7 @@ export default function Calendar() {
         updateForm('', '', weekdaysData[0], timesData[0], categoryColorsData[0], 0.5,);
     }
 
-    //Reset form
+    //Change form
     const updateForm = (name, description, day, time, color, duration ) => {
         //This way or create a new way to update
         setEventName(name);

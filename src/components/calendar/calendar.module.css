@@ -30,8 +30,9 @@ h1 {
 /* ----- Calendar Start ----- */
 
 .timeOfDay {
-    text-align: right;
+    text-align: left;
     font-style: italic;
+    box-sizing: border-box;
 }
 
 .weekdayHeaders {
@@ -43,7 +44,8 @@ h1 {
 }
 
 .blankGridBlock:hover {
-    background-color: pink;
+    background-color: rgba(251, 251, 251, 0.1);
+    border-radius: 5px;
 }
 
 /* Events container */
