@@ -392,6 +392,7 @@ export default function Calendar() {
                 </form>
             </div>
             <div className={calendarStyles.container}>
+                <p className={calendarStyles.newEventButton}>New Event</p>
                 {/* Weekday Headers */}
                 {getWeekdayHeadersDivs()}
                 {/* Time of Day */}

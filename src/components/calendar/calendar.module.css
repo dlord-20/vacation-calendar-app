@@ -23,6 +23,20 @@ body {
 
 /* ----- Calendar Start ----- */
 
+.newEventButton {
+    cursor: pointer;
+    background-color: none;
+    color: #edeff4;
+    border: 2px solid #edeff4;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    font-weight: 600;
+    padding: .1rem;
+    vertical-align: center;
+}
+
 .timeOfDay {
     text-align: center;
     font-style: italic;
