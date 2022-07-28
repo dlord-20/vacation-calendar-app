@@ -7,8 +7,6 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
-//Move creating an event to lightbox -> Possibly make it possible so when you click on the calendar you can add an event right at that time and day
-
 
 export default function Calendar() {
     
@@ -36,7 +34,7 @@ export default function Calendar() {
     //Return an option for the 'Time of the Day' dropdown list in the form
     const getOptions = (time) => {
         return (
-            <option value={time}>
+            <option value={time} className={calendarStyles.eventOption}>
                 {time}
             </option>
         )
@@ -82,7 +80,7 @@ export default function Calendar() {
     }
 
     const getColorOption = (color) => {
-        return <option value={color}>{color}</option>
+        return <option value={color} className={calendarStyles.eventOption}>{color}</option>
     }
 
     //----------------END of JSX----------------
@@ -137,7 +135,7 @@ export default function Calendar() {
     const getWeekdayHeadersOptions = () => {
         const weekdayOptions = [];
         for(let i = 0; i < weekdaysData.length; i++) {
-            const option = <option value={weekdaysData[i]}>{weekdaysData[i]}</option>
+            const option = <option value={weekdaysData[i]} className={calendarStyles.eventOption}>{weekdaysData[i]}</option>
             weekdayOptions.push(option)
         }
         return weekdayOptions;
@@ -242,10 +240,21 @@ export default function Calendar() {
         const eventForm = (
             <form onSubmit={handleSubmit}>
                 <label htmlFor="eventName">Event Name: 
-                    <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange} placeholder="Hike to temple"/><br/>
+                    <input type="text" 
+                    id="eventName" 
+                    name="eventName" 
+                    value={eventName} 
+                    placeholder="Make it rain"
+                    onChange={handleNameChange}/><br/>
                 </label>
                 <label htmlFor="eventDescription">Event Description: 
-                    <input type="text" id="eventDescription" name="eventDescription" value={eventDescription} onChange={handleDescriptionChange} placeholder="1.5 hours up, 1 hour down"/><br/>
+                    <textarea 
+                    id="eventDescription" 
+                    name="eventDescription" 
+                    value={eventDescription} 
+                    onChange={handleDescriptionChange} 
+                    placeholder="Big buddha. Bring hiking shoes, water, and some snacks."
+                    /><br/>
                 </label>
                 <label htmlFor="dayOfWeek">Day of the Week: </label>
                 <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>

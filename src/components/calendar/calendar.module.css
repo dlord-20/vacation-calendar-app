@@ -58,6 +58,31 @@
     color: #edeff4;
 }
 
+.calendarInput input::placeholder, textarea::placeholder {
+    color: gray;
+}
+
+.calendarInput textarea {
+    resize: none;
+    overflow: hidden;
+    width: 150px;
+}
+
+.calendarInput .eventOption {
+    background-color: #30414b;
+    color: #edeff4;
+}
+
+.calendarInput input, .calendarInput textarea, .calendarInput select {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #edeff4
+}
+
+.calendarInput select option {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
 .exit {
     height: 100px;
     width: 100px;
