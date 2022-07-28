@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import calendarStyles from "./calendar.module.css";
 import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 
+
 //Change color of list to corresponding category color
 //Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
@@ -237,9 +238,52 @@ export default function Calendar() {
         return index + 2;
     }
 
+    const getEventForm = () => {
+        const eventForm = (
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="eventName">Event Name: 
+                    <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange} placeholder="Hike to temple"/><br/>
+                </label>
+                <label htmlFor="eventDescription">Event Description: 
+                    <input type="text" id="eventDescription" name="eventDescription" value={eventDescription} onChange={handleDescriptionChange} placeholder="1.5 hours up, 1 hour down"/><br/>
+                </label>
+                <label htmlFor="dayOfWeek">Day of the Week: </label>
+                <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
+                    {getWeekdayHeadersOptions()}
+                </select><br/>
+                <label htmlFor="timeOfDay">Time of the Day: </label>
+                <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
+                    {getTimeOfDayOptions()}
+                </select><br/>
+                <label htmlFor="color">Category:
+                    <select id="color" name="color" value={eventColor} onChange={handleColor}>
+                        {getColorOptions()}
+                    </select><br/> 
+                </label>
+                <label htmlFor="durationOfEvent">Duration: </label>
+                <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
+                    {getDurationOptions()}
+                </select><br/>
+                <input type="submit" value="Add Event"></input>
+            </form>
+        );
+
+        return eventForm;
+    }
+
     //----------------End of positioning of events in calendar----------------
 
     //----------------Handles js events---------------------
+
+    const handleEventButtonClick = (event) => {
+        const element = document.getElementById("lightbox");
+        element.style.display = "block";
+    }
+    
+    const handleLightboxExit = (e) => {
+        const element = document.getElementById("lightbox");
+        element.style.display = "none";
+    }
 
     //Pop up with lightbox to add event
     //Maybe add a onDragStart and onDragEnd to edit duration as well
@@ -247,6 +291,7 @@ export default function Calendar() {
         const rowStart = getRowPositionOnGrid(event);
         const colStart = getColPositionOnGrid(event);
         updateForm(eventName, eventDescription, weekdaysData[colStart], timesData[rowStart - 2], eventColor, eventDuration);
+        handleEventButtonClick();
 
     }
 
@@ -303,6 +348,7 @@ export default function Calendar() {
         } 
         setUserEvents(userEvents => [...userEvents, newEvent]);
         clearForm();
+        handleLightboxExit();
     }
 
     //handles event deletion
@@ -357,42 +403,23 @@ export default function Calendar() {
         setEventDuration(e.target.value)
     }
 
-
     //----------------End of Handles js events---------------------
 
     return(
-        <div>
+        <div className={calendarStyles.calendarApp}>
             <h1>Weekly Planner</h1>
-            <div className="calendarInput">
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="eventName">Event Name: 
-                        <input type="text" id="eventName" name="eventName" value={eventName} onChange={handleNameChange} placeholder="Hike to temple"/><br/>
-                    </label>
-                    <label htmlFor="eventDescription">Event Description: 
-                        <input type="text" id="eventDescription" name="eventDescription" value={eventDescription} onChange={handleDescriptionChange} placeholder="1.5 hours up, 1 hour down"/><br/>
-                    </label>
-                    <label htmlFor="dayOfWeek">Day of the Week: </label>
-                    <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
-                        {getWeekdayHeadersOptions()}
-                    </select><br/>
-                    <label htmlFor="timeOfDay">Time of the Day: </label>
-                    <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
-                        {getTimeOfDayOptions()}
-                    </select><br/>
-                    <label htmlFor="color">Category:
-                        <select id="color" name="color" value={eventColor} onChange={handleColor}>
-                            {getColorOptions()}
-                        </select><br/> 
-                    </label>
-                    <label htmlFor="durationOfEvent">Duration: </label>
-                    <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
-                        {getDurationOptions()}
-                    </select><br/>
-                    <input type="submit" value="Add Event"></input>
-                </form>
+            <div className={calendarStyles.lightboxContainer} id="lightbox">
+                <div className={calendarStyles.lightboxBg}
+                    onClick={handleLightboxExit}
+                />
+                <div className={calendarStyles.calendarInput}>
+                    {getEventForm()}
+                </div>
             </div>
             <div className={calendarStyles.container}>
-                <p className={calendarStyles.newEventButton}>New Event</p>
+                <p className={calendarStyles.newEventButton}
+                    onClick={handleEventButtonClick}
+                >New Event</p>
                 {/* Weekday Headers */}
                 {getWeekdayHeadersDivs()}
                 {/* Time of Day */}
