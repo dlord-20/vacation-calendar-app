@@ -7,6 +7,7 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Change event list to be in chronological order
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
+//Consolidate 'x's that close either lightbox or list in CSS
 
 export default function Calendar() {
     
@@ -149,7 +150,7 @@ export default function Calendar() {
         }
         const list = [];
         durations.forEach(duration => {
-            list.push(<option value={duration}>{duration} hours</option>)
+            list.push(<option value={duration} className={calendarStyles.eventOption}>{duration} hours</option>)
         })
         return list;
     }
@@ -239,40 +240,37 @@ export default function Calendar() {
     const getEventForm = () => {
         const eventForm = (
             <form onSubmit={handleSubmit}>
-                <label htmlFor="eventName">Event Name: 
-                    <input type="text" 
-                    id="eventName" 
-                    name="eventName" 
-                    value={eventName} 
-                    placeholder="Make it rain"
-                    onChange={handleNameChange}/><br/>
-                </label>
-                <label htmlFor="eventDescription">Event Description: 
-                    <textarea 
-                    id="eventDescription" 
-                    name="eventDescription" 
-                    value={eventDescription} 
-                    onChange={handleDescriptionChange} 
-                    placeholder="Big buddha. Bring hiking shoes, water, and some snacks."
-                    /><br/>
-                </label>
+                <label htmlFor="eventName">Event Name: </label>
+                <input type="text" 
+                id="eventName" 
+                name="eventName" 
+                value={eventName} 
+                placeholder="Make it rain"
+                onChange={handleNameChange}/>
+                <label htmlFor="eventDescription">Event Description: </label>
+                <textarea 
+                id="eventDescription" 
+                name="eventDescription" 
+                value={eventDescription} 
+                onChange={handleDescriptionChange} 
+                placeholder="Big buddha. Bring hiking shoes, water, and some snacks."
+                />
                 <label htmlFor="dayOfWeek">Day of the Week: </label>
                 <select id="dayOfWeek" name="dayOfWeek" value={eventDayOfWeek} onChange={handleDayOfWeek}>
                     {getWeekdayHeadersOptions()}
-                </select><br/>
+                </select>
                 <label htmlFor="timeOfDay">Time of the Day: </label>
                 <select id="timeOfDay" name="timeOfDay" value={eventTimeOfDay} onChange={handleTimeOfDay}>
                     {getTimeOfDayOptions()}
-                </select><br/>
-                <label htmlFor="color">Category:
-                    <select id="color" name="color" value={eventColor} onChange={handleColor}>
-                        {getColorOptions()}
-                    </select><br/> 
-                </label>
+                </select>
+                <label htmlFor="color">Category: </label>
+                <select id="color" name="color" value={eventColor} onChange={handleColor}>
+                    {getColorOptions()}
+                </select>
                 <label htmlFor="durationOfEvent">Duration: </label>
                 <select id="durationOfEvent" name="durationEvent" value={eventDuration} onChange={handleDuration}>
                     {getDurationOptions()}
-                </select><br/>
+                </select>
                 <input type="submit" value="Add Event"></input>
             </form>
         );

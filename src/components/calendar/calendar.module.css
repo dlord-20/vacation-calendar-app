@@ -54,6 +54,17 @@
     border-radius: 15px;
 }
 
+.calendarInput form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2rem;
+}
+
+.calendarInput form input:last-child {
+    grid-column-start: span 2;
+    cursor: pointer;
+}
+
 .calendarInput label {
     color: #edeff4;
 }
