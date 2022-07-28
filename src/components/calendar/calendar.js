@@ -7,6 +7,7 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
 //Move creating an event to lightbox -> Possibly make it possible so when you click on the calendar you can add an event right at that time and day
+//Highlight time and day when hover over empty grid spaces
 
 export default function Calendar() {
     
@@ -199,7 +200,7 @@ export default function Calendar() {
                     <div 
                     className={calendarStyles.blankGridBlock} 
                     style={{gridArea: `${row}/${col}/${row+1}/${col + 1}`}} 
-                    onMouseOver={handleMouseOver} id={`blankitem${row}${col}`}/>
+                    onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} id={`blankitem${row}${col}`}/>
                     );
                     blankGrids.push(blankGrid);
                 col++;
@@ -237,22 +238,43 @@ export default function Calendar() {
 
     //----------------Handles js events---------------------
 
-    //Highlights day and time mouse is located on
-    const handleMouseOver = (event) => {
+    const getPositionOnGrid = (event) => {
         const gridArea = event.target.style.gridArea;
         const rowStart =  gridArea.slice(0, gridArea.indexOf('/'));
         const temp = gridArea.slice(gridArea.indexOf('/') + 1, gridArea.lastIndexOf('/'));
         const colStart = temp.slice(1, gridArea.indexOf('/'));
         const rowEnd = temp.slice(temp.lastIndexOf('/') + 2);
-        // console.log(event.target.style.gridArea);
-        // console.log('rowStart: ' + rowStart);
-        // console.log('colStart: ' + colStart);
-        // console.log('rowEnd: ' + rowEnd);
 
-        //Now we need to access the current weekday grid block and time grid block
-        //id=weekdayHeader5
-        //id=timeHeader(row)
+        return [rowStart, colStart];
+    }
 
+    //Highlights day and time mouse is located on
+    const handleMouseEnter = (event) => {
+        const gridPositions = getPositionOnGrid(event);
+        const rowStart = gridPositions[0];
+        const colStart = gridPositions[1];
+
+        //This is bad... Shouldn't access elements like this but it works
+        
+        const weekdayElement = document.getElementById(`weekdayHeader${colStart - 2}`);
+        weekdayElement.style.borderBottom = "2px white solid";
+        const timeElement = document.getElementById(`timeHeader${rowStart * 1}`);
+        timeElement.style.borderRight = "2px white solid";
+
+
+    }
+
+    const handleMouseLeave = (event) => {
+        const gridPositions = getPositionOnGrid(event);
+        const rowStart = gridPositions[0];
+        const colStart = gridPositions[1];
+
+        //This is bad... Shouldn't access elements like this but it works
+        
+        const weekdayElement = document.getElementById(`weekdayHeader${colStart - 2}`);
+        weekdayElement.style.borderBottom = "none";
+        const timeElement = document.getElementById(`timeHeader${rowStart * 1}`);
+        timeElement.style.borderRight = "none";
     }
 
     //handles form submission
