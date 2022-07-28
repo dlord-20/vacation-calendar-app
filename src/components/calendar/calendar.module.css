@@ -1,5 +1,6 @@
 .calendarApp h1 {
     text-align: center;
+    color: #edeff4;
 }
 
 .container {
@@ -42,15 +43,45 @@
 
 .calendarInput {
     position: fixed;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.15);
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     z-index: 100;
     padding: 2rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.474);
+    box-shadow: 2px 4px 30px rgba(0, 0, 0, 0.474);
+    border-radius: 15px;
 }
+
+.calendarInput label {
+    color: #edeff4;
+}
+
+.exit {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    }
+
+.exit:after {
+    position: fixed;
+    content: "\d7";
+    font-size: 50px;
+    color: #fff;
+    line-height: 100px;
+    text-align: center;
+    z-index: 50;
+    cursor: pointer;
+    opacity: .3;
+}
+
+.exit:hover::after {
+    opacity: 1;
+    }
 
 /* ----- Calendar Start ----- */
 

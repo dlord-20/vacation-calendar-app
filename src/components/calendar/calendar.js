@@ -409,9 +409,14 @@ export default function Calendar() {
         <div className={calendarStyles.calendarApp}>
             <h1>Weekly Planner</h1>
             <div className={calendarStyles.lightboxContainer} id="lightbox">
-                <div className={calendarStyles.lightboxBg}
+                <div 
+                    className={calendarStyles.lightboxBg}
                     onClick={handleLightboxExit}
                 />
+                <p><a 
+                className={calendarStyles.exit}
+                onClick={handleLightboxExit}
+                ></a></p>
                 <div className={calendarStyles.calendarInput}>
                     {getEventForm()}
                 </div>
