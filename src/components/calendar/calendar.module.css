@@ -17,10 +17,13 @@
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #edeff4;
+    font-family: raleway, sans-serif;
+
 }
 
 .container * {
     margin: 0px;
+    transition: all .2s ease-in-out;
 }
 
 /* Event Form */
@@ -58,6 +61,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 2rem;
+    font-weight: 100;
 }
 
 .calendarInput form input:last-child {
@@ -89,10 +93,10 @@
     color: #edeff4
 }
 
-.calendarInput select option {
+/* .calendarInput select option {
     background-color: rgba(0, 0, 0, 0.1);
     color: black;
-}
+} */
 
 .exit {
     height: 100px;

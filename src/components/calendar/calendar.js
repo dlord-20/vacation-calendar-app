@@ -8,6 +8,7 @@ import { weekdaysData, timesData, categoryColorsData } from "../../data/data";
 //Refactor userEvents to use Redux instead of useState
 //Make event list tell us the events under each day
 //Consolidate 'x's that close either lightbox or list in CSS
+//Create custom dropdown for options
 
 export default function Calendar() {
     
@@ -319,6 +320,9 @@ export default function Calendar() {
     const handleGridMouseEnter = (event) => {
         const rowStart = getRowPositionOnGrid(event);
         const colStart = getColPositionOnGrid(event);
+        //Do below -> add class name so it makes it easier to customize (need to be able to remove as well or we can do a display none to)
+        // element.classList.add("my-class");
+        // element.classList.remove("my-class");
         const currentTimeStyle = "2px white solid"
 
         //This is bad... Shouldn't access elements like this but it works
